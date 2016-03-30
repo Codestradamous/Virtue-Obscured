@@ -29,7 +29,7 @@ character and 10 will be a "Super Good" character which seems like a very good t
 
 Oh one more thing, if your life gets to 0 you are dead and the story is over. You will be allowed to go back to a checkpoint to see if you can
 make some more advantageous choices. '''
-
+from time import sleep
 
 stats = { 'life' : 10 , 'karma' : 5 , 'charms' : 0 }
 
@@ -239,6 +239,13 @@ elif choose == 'c' or choose == 'C':
 
 else:
     print "That is definitely not an option."
+print
+print
+print stats
+print
+print
+sleep(5)
+
 
 print """ As you are headding down the stairs you notice that something is very strange. There is not a sound in the whole house. "Perhaps they are just
 quietly discussing over breakfast what the Academy will be like for Azriel." You think to yourself. But when you open the door to downstairs you don't see
@@ -363,29 +370,85 @@ class action(object):
         elif choose == 'd' or choose == 'D':
             print charm_answer
             return 'charm answer'
-            
-first_class_ever = action(1)
+
+## temporarily on hold as I come up with the next class
+##import abc
+##
+##'''class action_interp(object):
+##    __metaclass__ = abc.ABCMeta
+##
+##    @abc.abstractmethod
+##    def action_output:
+##
+##class really_bad_evil_decision(action_interp):
+##    def action_output:
+##'''
+
+class life_modifier(action):
+    global stats
+    
+    def __init__(self, evil_success, evil_failure, good_success, good_failure, neutral_success, neutral_failure):
+        self.evil_success = evil_success
+        self.evil_failure = evil_failure
+        self.good_success = good_success
+        self.good_failure = good_failure
+        self.neutral_success = neutral_success
+        self.neutral_failure = neutral_failure
+
+    def outcome(self):
+        global stats
+        action.choices(self)
+        if choose == 'evil success':
+            stats['life'] =+ self.evil_success
+        elif choose == 'evil failure':
+            stats['life'] =+ self.evil_failure
+        elif choose == 'good success':
+            stats['life'] =+self.good_success
+        elif choose == 'good failure':
+            stats['life'] =+ self.good_failure
+        elif choose == 'neutral success':
+            stats['life'] =+ self.neutral_success
+        elif choose == 'neutral failure':
+            stats['life'] =+ self.neutral_failure
+        elif choose == 'charm answer':
+            stats[charms] =+ 1
+
+first_encounter = life_modifier(-2, -3, 1, -1, -1, -2)
+first_encounter.outcome()
+print
+print
 print stats
-for x in range(10):
-    store = first_class_ever.choices()
-    print stats
-    if store == 'evil success':
-        stats['life'] -= 2
-    elif store == 'evil failure':
-        stats['life'] -= 3
-    elif store == 'good success':
-        stats['life'] += 1
-    elif store == 'good failure':
-        stats['life'] -= 1
-    elif store == 'neutral success':
-        stats['life'] -= 1
-    elif store == 'neutral failure':
-        stats['life'] -= 2
-    elif store == 'charm answer':
-        stats['charms'] += 1
-        break
-    print stats
-    print 'After your truly wise (or possibly truly stupid) choices your new attributes are as follows...' 
+print
+print
+
+sleep(16)
+    
+        
+
+            
+##this was the original framework as I tried to get my first encounter going that has been taken over by my classes (see above).        
+##first_class_ever = action(1)
+##print stats
+##for x in range(10):
+##    store = first_class_ever.choices()
+##    print stats
+##    if store == 'evil success':
+##        stats['life'] -= 2
+##    elif store == 'evil failure':
+##        stats['life'] -= 3
+##    elif store == 'good success':
+##        stats['life'] += 1
+##    elif store == 'good failure':
+##        stats['life'] -= 1
+##    elif store == 'neutral success':
+##        stats['life'] -= 1
+##    elif store == 'neutral failure':
+##        stats['life'] -= 2
+##    elif store == 'charm answer':
+##        stats['charms'] += 1
+##        break
+##    print stats
+##    print 'After your truly wise (or possibly truly stupid) choices your new attributes are as follows...' 
 
 
 print stats
@@ -437,7 +500,11 @@ Smashing a stool for a handle and
 wrapping that in some scraps of cloth that you cut off one of your older tunics makes a decent enough torch for now. You begin to step slowly down the stairs
 and you realize that the stairs do not drop off but take a right turn at where you previously thought was the end. They then go down about the same amount
 then turn right again. It seems as if there is no floor and no ceiling either. Just this old narrow set of stairs going down to...wherever. After about three or
-four more turns you see something larger at the end of one of the flights of stairs.'''
+four more turns you see something larger at the end of one of the flights of stairs. You see somebody lying at the bottom. "Azreal!!!!! You hurry up to untie
+your brother but then you realize that hurrying down this narrow flight of stairs might not be a good idea so you check your pace and simply try to make your way
+as quickly as you can. You get to the altar and see that he is bound in some sort of silk web. He sees you and starts squirming immediately. You draw your sword
+and carefully start cutting the webbing away but as you are doing so you see the look of terror in your brothers eyes. "Oh crap." whatever made this was clearly
+in your brothers view directly behind you. You think to yourself... " What is the best way to attack a spider that is crawling up behind you?''' 
         
     
             
